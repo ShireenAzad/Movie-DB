@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.moviewithfragments.MoviesDatabase
+import com.example.moviewithfragments.database.MoviesDatabase
 import com.example.moviewithfragments.model.Movies
 import com.example.moviewithfragments.repository.MovieRepository
 import kotlinx.coroutines.CoroutineScope

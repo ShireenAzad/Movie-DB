@@ -1,16 +1,8 @@
 package com.example.moviewithfragments.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.room.PrimaryKey
-import com.example.moviewithfragments.MoviesDatabase
 import com.example.moviewithfragments.api.MovieApi
 import com.example.moviewithfragments.api.MovieApiUtilities
 import com.example.moviewithfragments.model.Movies
-import com.google.gson.annotations.SerializedName
-import kotlinx.coroutines.*
-import retrofit2.HttpException
 
 class MovieRepository(
     private val movieApi: MovieApi

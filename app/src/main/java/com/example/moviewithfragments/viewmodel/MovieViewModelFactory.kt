@@ -1,10 +1,10 @@
 package com.example.moviedb.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.moviedb.MoviesDatabase
-import com.example.moviedb.repository.MovieRepository
+import com.example.moviewithfragments.database.MoviesDatabase
+import com.example.moviewithfragments.repository.MovieRepository
+import com.example.moviewithfragments.viewmodel.MovieViewModel
 
 class MovieViewModelFactory constructor(private val movieRepository: MovieRepository,private val moviesDatabase: MoviesDatabase) :
     ViewModelProvider.Factory {
