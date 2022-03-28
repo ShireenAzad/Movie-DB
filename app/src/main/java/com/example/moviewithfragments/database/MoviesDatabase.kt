@@ -1,10 +1,10 @@
 package com.example.moviewithfragments.database
 
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.moviewithfragments.dao.MoviesDao
 import com.example.moviewithfragments.model.Movies
 
 @Database(entities = [Movies::class], version = 5, exportSchema = false )
