@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide.with
-import com.example.moviedb.adapters.MovieViewHolder
-import com.example.moviedb.adapters.OnMovieListener
+import com.example.moviewithfragments.adapters.MovieViewHolder
+import com.example.moviewithfragments.adapters.OnMovieListener
 import com.example.moviewithfragments.R
 import com.example.moviewithfragments.model.Movies
 

@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviedb.adapters.OnMovieListener
+import com.example.moviewithfragments.adapters.OnMovieListener
 import com.example.moviewithfragments.R
 
 class MovieViewHolder(itemView: View, onMovieListener: OnMovieListener) :
