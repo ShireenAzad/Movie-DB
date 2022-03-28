@@ -6,7 +6,7 @@ import com.example.moviewithfragments.adapters.MainAdapter
 import com.example.moviewithfragments.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity :AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var activityMainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

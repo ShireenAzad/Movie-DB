@@ -1,60 +1,63 @@
 package com.example.moviewithfragments.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.moviedb.viewmodel.MovieViewModelFactory
 import com.example.moviewithfragments.R
+import com.example.moviewithfragments.activities.MovieDetailsActivity
+import com.example.moviewithfragments.adapters.MovieRecyclerView
+import com.example.moviewithfragments.adapters.OnMovieListener
+import com.example.moviewithfragments.api.MovieApi
+import com.example.moviewithfragments.database.MoviesDatabase
+import com.example.moviewithfragments.repository.MovieRepository
+import com.example.moviewithfragments.viewmodel.MovieViewModel
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LatestMoviesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class LatestMoviesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieListener {
+    val movieRecyclerAdapter = MovieRecyclerView(this)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val moviesViewModel =
+            ViewModelProvider(
+                requireActivity(),
+                MovieViewModelFactory(
+                    MovieRepository(
+                        MovieApi.create(),
+                    ), MoviesDatabase.getDatabase(requireContext())
+
+                )
+            ).get(
+                MovieViewModel::class.java
+            )
+        moviesViewModel.getCurrentYearMovies(Calendar.getInstance().get(Calendar.YEAR))
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.adapter = movieRecyclerAdapter
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireActivity())
+        moviesViewModel.movies.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            movieRecyclerAdapter.setMoviesList(it)
+        })
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_latest_movies2, container, false)
+
+    override fun onMovieClick(position: Int) {
+        val intent = Intent(activity?.baseContext, MovieDetailsActivity::class.java)
+        val movie = movieRecyclerAdapter.getIdOfMovieSelected(position)
+        intent.putExtra("movie", movie)
+        startActivity(intent)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LatestMoviesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LatestMoviesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onCategoryClick(category: String?) {
+        TODO("Not yet implemented")
     }
+
+
 }
