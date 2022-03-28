@@ -1,4 +1,4 @@
-package com.example.moviewithfragments
+package com.example.moviewithfragments.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
