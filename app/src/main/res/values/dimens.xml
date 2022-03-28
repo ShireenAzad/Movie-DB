@@ -1,0 +1,24 @@
+<resources>
+    <dimen name="movie_h">180dp</dimen>
+    <dimen name="cardViewMargin">8dp</dimen>
+    <dimen name="CardViewMarginTop">0.7dp</dimen>
+    <dimen name="cardRadius">8dp</dimen>
+    <dimen name="cardElevation">2dp</dimen>
+    <dimen name="cardMaxElevation">1dp</dimen>
+    <dimen name="movieTitleMArgin">3dp</dimen>
+    <dimen name="TextSize">14sp</dimen>
+    <dimen name="defaultTextWidth">0dp</dimen>
+    <dimen name="padding">5dp</dimen>
+    <dimen name="translation">9dp</dimen>
+    <dimen name="imageWidth">20dp</dimen>
+    <dimen name="imageHeight">20dp</dimen>
+    <dimen name="ratingBarMarinStart">5dp</dimen>
+    <dimen name="ratingBarMarginEnd">30dp</dimen>
+    <dimen name="layoutPAdding">6dp</dimen>
+    <dimen name="titleMarginStart">15dp</dimen>
+    <dimen name="titleMarginTop">44dp</dimen>
+    <dimen name="ratingBArWidth">240dp</dimen>
+    <dimen name="ratingBarMarginStart">84dp</dimen>
+    <dimen name="ratingBarMarginTop">10dp</dimen>
+    <dimen name="overViewMarginTop">10dp</dimen>
+</resources>
