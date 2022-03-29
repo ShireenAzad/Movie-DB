@@ -43,7 +43,7 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity())
         moviesViewModel.movies.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            movieRecyclerAdapter.setMoviesList(it)
+            movieRecyclerAdapter.updateMovies(it)
         })
 
     }

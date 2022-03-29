@@ -1,14 +1,13 @@
 package com.example.moviewithfragments.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide.with
-import com.example.moviewithfragments.adapters.MovieViewHolder
-import com.example.moviewithfragments.adapters.OnMovieListener
 import com.example.moviewithfragments.R
+import com.example.moviewithfragments.Utils
 import com.example.moviewithfragments.model.Movies
 
 
@@ -35,17 +34,21 @@ class MovieRecyclerView(private val onMovieListener: OnMovieListener) :
 
     fun setMoviesList(movieList: List<Movies>) {
         this.movieList = movieList.toMutableList()
-        notifyDataSetChanged()
     }
     fun getIdOfMovieSelected(position: Int): Movies? {
         if (movieList != null) {
             if (movieList.isNotEmpty()) {
-                Log.v("Movie","List position"+movieList[position])
                 return movieList[position]
             }
         }
         return null
     }
-
+    fun updateMovies(movies: List<Movies>) {
+        val diffCallback =Utils(this.movieList, movies)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        this.movieList.clear()
+        this.movieList.addAll(movies)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
 }
