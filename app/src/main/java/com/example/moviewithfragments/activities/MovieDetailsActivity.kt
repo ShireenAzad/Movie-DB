@@ -3,6 +3,7 @@ package com.example.moviewithfragments.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.moviedb.enums.MOVIE
 import com.example.moviewithfragments.api.MovieApiUtilities
 import com.example.moviewithfragments.databinding.ActivityMovieDetailsBinding
 import com.example.moviewithfragments.model.Movies
@@ -13,8 +14,9 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activityMovieDetailsBinding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(activityMovieDetailsBinding.root)
-        if (intent.hasExtra("movie")) {
-            val movieModel = intent.getParcelableExtra<Movies>("movie")
+        if (intent.hasExtra(MOVIE)) {
+            val movieModel = intent.getParcelableExtra<Movies>(MOVIE)
+
             activityMovieDetailsBinding.title.text = movieModel?.title.toString()
             activityMovieDetailsBinding.overview.text = movieModel?.overview.toString()
             if (movieModel != null) {

@@ -24,26 +24,25 @@ class MainActivity : AppCompatActivity() {
         val viewPager2 = activityMainBinding.viewPager
         val adapter = MainAdapter(this)
         viewPager2.adapter = adapter
-        val tabTitles = arrayOf("Popular Movies", "Latest Movies")
         TabLayoutMediator(
             tabLayout, viewPager2
-        ) { tab, position -> tab.text = tabTitles[position] }.attach()
+        ) { tab, position -> tab.text = adapter.getTabTitle(position)}.attach()
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-
-        // Retrieve the SearchView and plug it into SearchManager
         val searchView = MenuItemCompat.getActionView(menu.findItem(R.id.search)) as SearchView
         val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.setOnClickListener(object : View.OnClickListener{
+        searchView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 searchView.onActionViewExpanded()
             }
         })
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.getItemId()) {
             R.id.search -> {

@@ -2,6 +2,7 @@ package com.example.moviewithfragments.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -37,6 +38,7 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
             ).get(
                 MovieViewModel::class.java
             )
+        Log.v("Checking","Saved Instance State"+(savedInstanceState==null))
         moviesViewModel.getCurrentYearMovies(Calendar.getInstance().get(Calendar.YEAR))
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.adapter = movieRecyclerAdapter
@@ -45,6 +47,7 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
         moviesViewModel.movies.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             movieRecyclerAdapter.updateMovies(it)
         })
+
 
     }
 

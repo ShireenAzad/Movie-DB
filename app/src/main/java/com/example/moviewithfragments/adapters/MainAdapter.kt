@@ -8,6 +8,7 @@ import com.example.moviewithfragments.fragments.PopularMoviesFragment
 
 class MainAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
+    private val FragmentTitleList: Array<String> =  arrayOf("Popular Movies", "Latest Movies")
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> PopularMoviesFragment()
@@ -18,5 +19,8 @@ class MainAdapter(fragmentActivity: FragmentActivity) :
 
     override fun getItemCount(): Int {
         return 2
+    }
+    fun getTabTitle(position : Int): String{
+        return FragmentTitleList[position]
     }
 }
