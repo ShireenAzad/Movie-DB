@@ -23,7 +23,7 @@ class MovieRecyclerView(private val onMovieListener: OnMovieListener) :
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.title.text = movieList[position].title
-        holder.releaseDate.text = movieList[position].releaseDate
+        holder.releaseDate.text = movieList[position].releaseDate.toString()
         holder.ratingBar.text = (movieList[position].voteAverage?.div(2)).toString()
         with(holder.itemView.context).load( movieList[position].posterPath)
             .into(holder.imageView)

@@ -14,7 +14,7 @@ interface MoviesDao {
     @Query("SELECT * FROM movies where movieType='popular'")
     fun getMovies(): List<Movies>
 
-    @Query("SELECT * FROM movies where cast(substr(releaseDate,1,4) as integer)=:year")
+    @Query("SELECT * FROM movies where strftime('%Y',releaseDate)=:year")
     fun getCurrentYearMovies(year:Int): List<Movies>
 
 

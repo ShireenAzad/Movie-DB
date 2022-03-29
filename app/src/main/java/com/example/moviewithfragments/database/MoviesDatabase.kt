@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.moviewithfragments.dao.MoviesDao
 import com.example.moviewithfragments.model.Movies
+import com.example.moviewithfragments.typeconverters.DateConverter
 
-@Database(entities = [Movies::class], version = 6, exportSchema = false )
+@TypeConverters(DateConverter::class)
+@Database(entities = [Movies::class], version = 6, exportSchema = false)
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun moviesDao(): MoviesDao
@@ -22,7 +25,8 @@ abstract class MoviesDatabase : RoomDatabase() {
                         context,
                         MoviesDatabase::class.java,
                         "moviesDB"
-                    ).fallbackToDestructiveMigration()
+                    )
+                        .fallbackToDestructiveMigration()
                         .allowMainThreadQueries()
                         .build()
                 }
