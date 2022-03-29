@@ -29,33 +29,32 @@ class MainActivity : AppCompatActivity() {
             tabLayout, viewPager2
         ) { tab, position -> tab.text = tabTitles[position] }.attach()
 
-
-}
-override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menuInflater.inflate(R.menu.main_menu, menu)
-
-    // Retrieve the SearchView and plug it into SearchManager
-    val searchView = MenuItemCompat.getActionView(menu.findItem(R.id.search)) as SearchView
-    val searchManager = getSystemService(AppCompatActivity.SEARCH_SERVICE) as SearchManager
-    searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-    searchView.setOnClickListener(object : View.OnClickListener{
-        override fun onClick(v: View?) {
-            searchView.onActionViewExpanded()
-        }
-    })
-    return true
-}
-override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.getItemId()) {
-        R.id.search -> {
-            finish()
-            val intent = Intent(this@MainActivity, SearchActivity::class.java)
-            startActivity(intent)
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
     }
-}
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+
+        // Retrieve the SearchView and plug it into SearchManager
+        val searchView = MenuItemCompat.getActionView(menu.findItem(R.id.search)) as SearchView
+        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                searchView.onActionViewExpanded()
+            }
+        })
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.getItemId()) {
+            R.id.search -> {
+                finish()
+                val intent = Intent(this@MainActivity, SearchActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
 
 

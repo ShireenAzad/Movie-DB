@@ -42,7 +42,7 @@ class MovieViewModel(
                     moviesDatabase.moviesDao().insertMovies(response)
 
                 } catch (e: Throwable) {
-                    _movies.postValue(moviesDatabase.moviesDao().getMovies())
+                    _movies.postValue(moviesDatabase.moviesDao().getCurrentYearMovies(year))
 
                 }
             }

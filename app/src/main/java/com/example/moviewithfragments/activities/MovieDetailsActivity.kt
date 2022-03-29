@@ -3,7 +3,6 @@ package com.example.moviewithfragments.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.moviedb.enums.MOVIE
 import com.example.moviewithfragments.api.MovieApiUtilities
 import com.example.moviewithfragments.databinding.ActivityMovieDetailsBinding
 import com.example.moviewithfragments.model.Movies
@@ -14,15 +13,16 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activityMovieDetailsBinding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(activityMovieDetailsBinding.root)
-        if(intent.hasExtra(MOVIE)){
+        if (intent.hasExtra("movie")) {
             val movieModel = intent.getParcelableExtra<Movies>("movie")
-            activityMovieDetailsBinding.title.text=movieModel?.title.toString()
-            activityMovieDetailsBinding.overview.text=movieModel?.overview.toString()
+            activityMovieDetailsBinding.title.text = movieModel?.title.toString()
+            activityMovieDetailsBinding.overview.text = movieModel?.overview.toString()
             if (movieModel != null) {
-                activityMovieDetailsBinding.ratingBar.rating= ((movieModel.voteAverage)/2).toFloat()
+                activityMovieDetailsBinding.ratingBar.rating =
+                    ((movieModel.voteAverage) / 2).toFloat()
             }
 
-            Glide.with(this).load(MovieApiUtilities.IMAGE_URI+movieModel?.posterPath)
+            Glide.with(this).load(MovieApiUtilities.IMAGE_URI + movieModel?.posterPath)
                 .into(activityMovieDetailsBinding.imageView)
         }
 

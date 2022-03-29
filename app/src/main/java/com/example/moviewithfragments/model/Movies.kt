@@ -3,9 +3,11 @@ package com.example.moviewithfragments.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.moviewithfragments.typeconverters.DateConverter
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-
+@TypeConverters(DateConverter::class)
 @Parcelize
 @Entity(tableName = "movies")
 data class Movies(

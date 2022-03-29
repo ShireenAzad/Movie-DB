@@ -1,6 +1,9 @@
 package com.example.moviewithfragments.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.moviewithfragments.model.Movies
 
 @Dao
@@ -10,5 +13,9 @@ interface MoviesDao {
 
     @Query("SELECT * FROM movies")
     fun getMovies(): List<Movies>
+
+    @Query("SELECT * FROM movies where cast(substr(releaseDate,1,4) as integer)=:year")
+    fun getCurrentYearMovies(year:Int): List<Movies>
+
 
 }

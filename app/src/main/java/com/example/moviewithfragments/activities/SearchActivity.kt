@@ -22,6 +22,7 @@ import com.example.moviewithfragments.database.MoviesDatabase
 import com.example.moviewithfragments.repository.MovieRepository
 import com.example.moviewithfragments.viewmodel.MovieViewModel
 
+
 class SearchActivity : AppCompatActivity(), OnMovieListener {
     val movieRecyclerAdapter = MovieRecyclerView(this)
     private var searchView: SearchView? = null
