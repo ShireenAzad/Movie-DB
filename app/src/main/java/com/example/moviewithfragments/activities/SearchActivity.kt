@@ -85,8 +85,6 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
         startActivity(intent)
     }
 
-    override fun onCategoryClick(category: String?) {
-        TODO("Not yet implemented")
-    }
+
 
 }
