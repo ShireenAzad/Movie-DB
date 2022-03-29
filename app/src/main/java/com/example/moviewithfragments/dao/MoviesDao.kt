@@ -11,7 +11,7 @@ interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovies(movies: List<Movies>)
 
-    @Query("SELECT * FROM movies")
+    @Query("SELECT * FROM movies where movieType='popular'")
     fun getMovies(): List<Movies>
 
     @Query("SELECT * FROM movies where cast(substr(releaseDate,1,4) as integer)=:year")

@@ -35,10 +35,10 @@ class MovieViewModel(
 
     fun getCurrentYearMovies(year: Int): List<Movies>? {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = movieRepository.searchMoviesFromCurrentYear(year)
             withContext(Dispatchers.Main) {
                 try {
-                    _movies.value = response!!
+                    val response = movieRepository.searchMoviesFromCurrentYear(year)
+                    _movies.postValue(response!!)
                     moviesDatabase.moviesDao().insertMovies(response)
 
                 } catch (e: Throwable) {

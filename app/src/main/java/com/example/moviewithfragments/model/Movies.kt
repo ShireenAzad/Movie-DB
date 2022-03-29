@@ -1,6 +1,7 @@
 package com.example.moviewithfragments.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
@@ -24,4 +25,6 @@ data class Movies(
     val title: String,
     @SerializedName("vote_average")
     val voteAverage: Double,
+    @ColumnInfo
+    var movieType:String?=""
 ):Parcelable

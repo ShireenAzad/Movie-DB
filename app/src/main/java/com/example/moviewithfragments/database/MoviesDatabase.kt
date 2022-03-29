@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.moviewithfragments.dao.MoviesDao
 import com.example.moviewithfragments.model.Movies
 
-@Database(entities = [Movies::class], version = 5, exportSchema = false )
+@Database(entities = [Movies::class], version = 6, exportSchema = false )
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun moviesDao(): MoviesDao

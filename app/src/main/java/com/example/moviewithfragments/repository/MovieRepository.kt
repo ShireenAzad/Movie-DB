@@ -9,6 +9,12 @@ class MovieRepository(
 ) {
     suspend fun getAllMovies(): List<Movies>? {
         val movies = movieApi.getMovies()
+        val results = movies.body()?.results
+        if (results != null) {
+            for (movie in results) {
+                movie.movieType = "popular"
+            }
+        }
         return movies.body()?.results?.let { convertDTOIntoUIModel(it) }
     }
 
@@ -27,7 +33,14 @@ class MovieRepository(
 
     private fun convertDTOIntoUIModel(movies: List<Movies>): List<Movies> {
         return movies.map {
-            Movies(it.id,  it.overview,MovieApiUtilities.IMAGE_URI+it.posterPath, it.releaseDate, it.title, it.voteAverage)
+            Movies(
+                it.id,
+                it.overview,
+                MovieApiUtilities.IMAGE_URI + it.posterPath,
+                it.releaseDate,
+                it.title,
+                it.voteAverage, it.movieType
+            )
         }
     }
 }
