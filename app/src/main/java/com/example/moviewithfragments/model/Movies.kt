@@ -1,14 +1,11 @@
 package com.example.moviewithfragments.model
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 import java.util.*
-
-@Parcelize
+//Entity class for db model
 @Entity(tableName = "movies")
 data class Movies(
     @SerializedName("id")
@@ -26,4 +23,4 @@ data class Movies(
     val voteAverage: Double,
     @ColumnInfo
     var movieType:String?=""
-):Parcelable
+)

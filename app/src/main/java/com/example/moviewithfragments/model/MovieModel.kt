@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-
+//Class for UI model
 @Parcelize
 class MovieModel(
     @SerializedName("adult")
