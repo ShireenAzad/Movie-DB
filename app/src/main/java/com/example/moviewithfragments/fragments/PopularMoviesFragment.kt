@@ -54,8 +54,4 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
         intent.putExtra(MOVIE, movie)
         startActivity(intent)
     }
-
-    override fun onCategoryClick(category: String?) {
-        TODO("Not yet implemented")
-    }
 }

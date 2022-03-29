@@ -21,7 +21,7 @@ import java.util.*
 
 
 class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieListener {
-    val movieRecyclerAdapter = MovieRecyclerView(this)
+    private val movieRecyclerAdapter = MovieRecyclerView(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,9 +34,7 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
                     ), MoviesDatabase.getDatabase(requireContext())
 
                 )
-            ).get(
-                MovieViewModel::class.java
-            )
+            )[MovieViewModel::class.java]
         moviesViewModel.getCurrentYearMovies(Calendar.getInstance().get(Calendar.YEAR))
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewLatestMovies)
 
@@ -56,10 +54,6 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
         val movie = movieRecyclerAdapter.getIdOfMovieSelected(position)
         intent.putExtra(MOVIE, movie)
         startActivity(intent)
-    }
-
-    override fun onCategoryClick(category: String?) {
-        TODO("Not yet implemented")
     }
 
 
