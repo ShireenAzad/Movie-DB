@@ -22,12 +22,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(activityMainBinding.root)
         val tabLayout = activityMainBinding.tabs
         val viewPager2 = activityMainBinding.viewPager
+
         val adapter = MainAdapter(this)
         viewPager2.adapter = adapter
+        //supportFragmentManager.beginTransaction().add()
         TabLayoutMediator(
             tabLayout, viewPager2
         ) { tab, position -> tab.text = adapter.getTabTitle(position)}.attach()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

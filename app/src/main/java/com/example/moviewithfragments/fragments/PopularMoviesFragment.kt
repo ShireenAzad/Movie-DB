@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,37 +20,32 @@ import com.example.moviewithfragments.viewmodel.MovieViewModel
 
 
 class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovieListener {
-    companion object {
-        private const val FRAGMENT_STATE = "state"
-    }
-
-    private var state = 0
     val movieRecyclerAdapter = MovieRecyclerView(this)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            val moviesViewModel =
-                ViewModelProvider(
-                    requireActivity(),
-                    MovieViewModelFactory(
-                        MovieRepository(
-                            MovieApi.create(),
-                        ),
-                        MoviesDatabase.getDatabase(requireContext())
-                    )
-                ).get(
-                    MovieViewModel::class.java
-                )
-            moviesViewModel.getMovies()
-            val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-            recyclerView.adapter = movieRecyclerAdapter
-            recyclerView.layoutManager =
-                LinearLayoutManager(requireActivity())
-            moviesViewModel.movies.observe(viewLifecycleOwner, Observer {
-                movieRecyclerAdapter.updateMovies(it)
-            })
+        val moviesViewModel =
+            ViewModelProvider(
+                requireActivity(),
+                MovieViewModelFactory(
+                    MovieRepository(
+                        MovieApi.create(),
+                    ), MoviesDatabase.getDatabase(requireContext())
 
-        }
+                )
+            ).get(
+                MovieViewModel::class.java
+            )
+        moviesViewModel.getMovies()
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewPopularMovies)
+        recyclerView.adapter = movieRecyclerAdapter
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireActivity())
+        moviesViewModel.popularMovies.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            movieRecyclerAdapter.updateMovies(it)
+        })
+
+
+    }
 
 
     override fun onMovieClick(position: Int) {
@@ -64,5 +58,4 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
     override fun onCategoryClick(category: String?) {
         TODO("Not yet implemented")
     }
-
 }

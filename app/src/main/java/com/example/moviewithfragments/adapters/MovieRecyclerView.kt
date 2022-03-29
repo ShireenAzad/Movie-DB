@@ -1,5 +1,6 @@
 package com.example.moviewithfragments.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,10 +35,12 @@ class MovieRecyclerView(private val onMovieListener: OnMovieListener) :
 
     fun setMoviesList(movieList: List<Movies>) {
         this.movieList = movieList.toMutableList()
+        updateMovies(movieList)
     }
     fun getIdOfMovieSelected(position: Int): Movies? {
         if (movieList != null) {
             if (movieList.isNotEmpty()) {
+                Log.v("Movie","List position"+movieList[position])
                 return movieList[position]
             }
         }
