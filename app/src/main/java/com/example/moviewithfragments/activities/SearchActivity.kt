@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviedb.enums.MOVIE
 import com.example.moviedb.viewmodel.MovieViewModelFactory
 import com.example.moviewithfragments.R
 import com.example.moviewithfragments.adapters.MovieRecyclerView
@@ -81,7 +82,7 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
 
     override fun onMovieClick(position: Int) {
         val intent = Intent(this, MovieDetailsActivity::class.java)
-        intent.putExtra("movie", movieRecyclerAdapter?.getIdOfMovieSelected(position))
+        intent.putExtra(MOVIE, movieRecyclerAdapter?.getIdOfMovieSelected(position))
         startActivity(intent)
     }
 
