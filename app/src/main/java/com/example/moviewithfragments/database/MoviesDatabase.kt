@@ -10,7 +10,7 @@ import com.example.moviewithfragments.model.Movies
 import com.example.moviewithfragments.typeconverters.DateConverter
 
 @TypeConverters(DateConverter::class)
-@Database(entities = [Movies::class], version = 3, exportSchema = false)
+@Database(entities = [Movies::class], version = 4, exportSchema = false)
 abstract class MoviesDatabase : RoomDatabase() {
     abstract fun moviesDao(): MoviesDao
 

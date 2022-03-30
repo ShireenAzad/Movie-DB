@@ -1,69 +1,56 @@
 package com.example.moviewithfragments.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviewithfragments.model.Movies
+import com.example.moviewithfragments.model.MovieData
+import com.example.moviewithfragments.model.ResponseResults
 import com.example.moviewithfragments.repository.MovieRepository
 import kotlinx.coroutines.launch
 
 class MovieViewModel(
     private var movieRepository: MovieRepository,
 ) : ViewModel() {
-    private val _popularMovies = MutableLiveData<List<Movies>>()
-    val popularMovies: LiveData<List<Movies>> = _popularMovies
-    private val _latestMovies = MutableLiveData<List<Movies>>()
-    val latestMovies: LiveData<List<Movies>> = _latestMovies
-    private val _movies = MutableLiveData<List<Movies>>()
-    val movies: LiveData<List<Movies>> = _movies
-    fun getMovies(): List<Movies>? {
+    private val _popularMovies = MutableLiveData<List<MovieData>>()
+    val popularMovies: LiveData<List<MovieData>> = _popularMovies
+    private val _latestMovies = MutableLiveData<List<MovieData>>()
+    val latestMovies: LiveData<List<MovieData>> = _latestMovies
+    private val _movies = MutableLiveData<List<MovieData>>()
+    val movies: LiveData<List<MovieData>> = _movies
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+    fun getMovies() {
         viewModelScope.launch {
-            try {
-                val response = movieRepository.getAllMovies()
-                _popularMovies.postValue(response!!)
-
-            } catch (e: Throwable) {
-                Log.v("Error", "Message" + e.message)
+            val response = movieRepository.getAllMovies()
+            when (response) {
+                is ResponseResults.Success -> _popularMovies.postValue(response.data!!)
+                is ResponseResults.Failure -> _error.postValue(response.error!!)
             }
         }
-
-        return popularMovies.value
     }
 
 
-    fun getCurrentYearMovies(year: Int): List<Movies>? {
+    fun getCurrentYearMovies(year: Int) {
         viewModelScope.launch {
-            try {
-                val response = movieRepository.searchMoviesFromCurrentYear(year)
-                _latestMovies.postValue(response!!)
-
-            } catch (e: Throwable) {
-                Log.v("Error", "Message" + e.message)
-
+            val response = movieRepository.searchMoviesFromCurrentYear(year)
+            when (response) {
+                is ResponseResults.Success -> _latestMovies.postValue(response.data!!)
+                is ResponseResults.Failure -> _error.postValue(response.error!!)
             }
 
-
         }
-        return latestMovies.value
     }
 
-    fun getMoviesByKeyWord(query: String): List<Movies>? {
+    fun getMoviesByKeyWord(query: String) {
         viewModelScope.launch {
             val response = movieRepository.searchMovies(query)
-
-            try {
-                _movies.value = response!!
-
-            } catch (e: Throwable) {
-                Log.v("Error", "Message" + e.message)
-
+            when (response) {
+                is ResponseResults.Success -> _latestMovies.postValue(response.data!!)
+                is ResponseResults.Failure -> _error.postValue(response.error!!)
             }
-
-
         }
-        return movies.value
     }
-
 }
+
+

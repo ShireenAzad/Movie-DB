@@ -11,6 +11,5 @@ data class Movies(
     val releaseDate: String,
     @PrimaryKey
     val title: String,
-    val voteAverage: Double,
-    var movieType:String?=""
+    val voteAverage: Double
 )

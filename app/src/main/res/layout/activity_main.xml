@@ -20,7 +20,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabTextAppearance="?android:attr/textAppearanceMedium"
             app:tabTextColor="@color/white">
 
         </com.google.android.material.tabs.TabLayout>

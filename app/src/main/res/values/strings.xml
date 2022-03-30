@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Movie</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="search">search</string>
-    <string name="popularMovies">Popular Movies</string>
-    <string name="currentYearMovies">Current Year Movies</string>
+    <string-array name="movieCategory">
+        <item name="popularMovies">Popular </item>
+        <item name="currentYearMovies">Current Year </item>
+    </string-array>
 
 </resources>

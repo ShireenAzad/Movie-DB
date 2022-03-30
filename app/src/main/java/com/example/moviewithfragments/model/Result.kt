@@ -1,8 +1,10 @@
 package com.example.moviewithfragments.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 data class Result(
     @SerializedName("page")
     val page: Int,
@@ -12,4 +14,4 @@ data class Result(
     val totalPages: Int,
     @SerializedName("total_results")
     val totalResults: Int
-)
+):Parcelable

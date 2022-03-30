@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide.with
 import com.example.moviewithfragments.R
 import com.example.moviewithfragments.Utils
-import com.example.moviewithfragments.model.Movies
+import com.example.moviewithfragments.model.MovieData
 
 
 class MovieRecyclerView(private val onMovieListener: OnMovieListener) :
     RecyclerView.Adapter<MovieViewHolder>() {
-    var movieList = mutableListOf<Movies>()
+    var movieList = ArrayList<MovieData>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.movie_list, parent, false)
@@ -33,11 +33,7 @@ class MovieRecyclerView(private val onMovieListener: OnMovieListener) :
         return movieList.size
     }
 
-    fun setMoviesList(movieList: List<Movies>) {
-        this.movieList = movieList.toMutableList()
-        updateMovies(movieList)
-    }
-    fun getIdOfMovieSelected(position: Int): Movies? {
+    fun getIdOfMovieSelected(position: Int): MovieData? {
         if (movieList != null) {
             if (movieList.isNotEmpty()) {
                 Log.v("Movie","List position"+movieList[position])
@@ -46,7 +42,7 @@ class MovieRecyclerView(private val onMovieListener: OnMovieListener) :
         }
         return null
     }
-    fun updateMovies(movies: List<Movies>) {
+    fun updateMovies(movies: List<MovieData>) {
         val diffCallback =Utils(this.movieList, movies)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.movieList.clear()

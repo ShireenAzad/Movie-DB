@@ -23,9 +23,9 @@ class MainActivity : AppCompatActivity() {
         val tabLayout = activityMainBinding.tabs
         val viewPager2 = activityMainBinding.viewPager
 
-        val adapter = MainAdapter(this)
+        val adapter = MainAdapter(this,resources.getStringArray(R.array.movieCategory))
         viewPager2.adapter = adapter
-        //supportFragmentManager.beginTransaction().add()
+
         TabLayoutMediator(
             tabLayout, viewPager2
         ) { tab, position -> tab.text = adapter.getTabTitle(position)}.attach()

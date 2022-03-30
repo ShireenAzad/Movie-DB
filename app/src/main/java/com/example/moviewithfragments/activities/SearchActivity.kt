@@ -69,7 +69,7 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
                 recyclerView.layoutManager =
                     LinearLayoutManager(this@SearchActivity)
                 moviesViewModel?.movies?.observe(this@SearchActivity, Observer {
-                    movieRecyclerAdapter?.setMoviesList(it)
+                    movieRecyclerAdapter?.updateMovies(it)
                 })
                 return false
 
