@@ -1,15 +1,12 @@
 package com.example.moviewithfragments.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import java.util.*
 
-@Entity(tableName = "movies")
-data class Movies(
+data class MovieData(
     val id: Int,
     val overview: String,
     val posterPath: String,
     val releaseDate: String,
-    @PrimaryKey
     val title: String,
     val voteAverage: Double,
     var movieType:String?=""

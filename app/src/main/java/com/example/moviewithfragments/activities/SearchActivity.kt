@@ -36,7 +36,7 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
                 MovieViewModelFactory(
                     MovieRepository(
                         MovieApi.create(),
-                    ), MoviesDatabase.getDatabase(this)
+                     MoviesDatabase.getDatabase(this))
 
                 )
             ).get(

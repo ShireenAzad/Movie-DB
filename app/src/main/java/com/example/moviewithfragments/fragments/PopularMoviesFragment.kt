@@ -2,6 +2,7 @@ package com.example.moviewithfragments.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,9 +28,8 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
                 requireActivity(),
                 MovieViewModelFactory(
                     MovieRepository(
-                        MovieApi.create(),
-                    ), MoviesDatabase.getDatabase(requireContext())
-
+                        MovieApi.create(), MoviesDatabase.getDatabase(requireContext())
+                    )
                 )
             ).get(
                 MovieViewModel::class.java
@@ -50,6 +50,7 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
     override fun onMovieClick(position: Int) {
         val intent = Intent(activity?.baseContext, MovieDetailsActivity::class.java)
         val movie = movieRecyclerAdapter.getIdOfMovieSelected(position)
+        Log.v("Movie", "By Specific Id" + movie)
         //intent.putExtra(MOVIE, movie)
         startActivity(intent)
     }

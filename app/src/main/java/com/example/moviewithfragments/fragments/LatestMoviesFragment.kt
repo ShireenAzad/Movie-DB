@@ -30,8 +30,8 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
                 MovieViewModelFactory(
                     MovieRepository(
                         MovieApi.create(),
-                    ), MoviesDatabase.getDatabase(requireContext())
-
+                        MoviesDatabase.getDatabase(requireContext())
+                    )
                 )
             )[MovieViewModel::class.java]
         moviesViewModel.getCurrentYearMovies(Calendar.getInstance().get(Calendar.YEAR))
