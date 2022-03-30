@@ -1,7 +1,6 @@
 package com.example.moviewithfragments.repository
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.moviewithfragments.api.MovieApi
 import com.example.moviewithfragments.api.MovieApiUtilities
@@ -44,7 +43,6 @@ class MovieRepository(
 
 
     suspend fun searchMoviesFromCurrentYear(year: Int): ResponseResults<List<MovieData>> {
-        Log.v("Check","latest movies"+(isNetworkAvailable))
         if (isNetworkAvailable) {
 
             try {

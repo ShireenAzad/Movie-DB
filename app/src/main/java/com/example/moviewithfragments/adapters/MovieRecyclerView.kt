@@ -17,14 +17,14 @@ class MovieRecyclerView(private val onMovieListener: OnMovieListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.movie_list, parent, false)
-        return MovieViewHolder(view,onMovieListener)
+        return MovieViewHolder(view, onMovieListener)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.title.text = movieList[position].title
         holder.releaseDate.text = movieList[position].releaseDate.toString()
         holder.ratingBar.text = (movieList[position].voteAverage?.div(2)).toString()
-        with(holder.itemView.context).load( movieList[position].posterPath)
+        with(holder.itemView.context).load(movieList[position].posterPath)
             .into(holder.imageView)
     }
 
@@ -33,14 +33,11 @@ class MovieRecyclerView(private val onMovieListener: OnMovieListener) :
     }
 
     fun getIdOfMovieSelected(position: Int): MovieData? {
-        if (movieList != null) {
-                return movieList[position]
-
-        }
-        return null
+        return movieList[position]
     }
+
     fun updateMovies(movies: List<MovieData>) {
-        val diffCallback =Utils(this.movieList, movies)
+        val diffCallback = Utils(this.movieList, movies)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.movieList.clear()
         this.movieList.addAll(movies)

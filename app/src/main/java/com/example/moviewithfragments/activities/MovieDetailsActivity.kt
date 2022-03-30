@@ -4,10 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.moviedb.enums.MOVIE
-import com.example.moviewithfragments.api.MovieApiUtilities
 import com.example.moviewithfragments.databinding.ActivityMovieDetailsBinding
 import com.example.moviewithfragments.model.MovieData
-import com.example.moviewithfragments.model.MovieModel
 
 class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var activityMovieDetailsBinding: ActivityMovieDetailsBinding
@@ -25,7 +23,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     ((movieModel.voteAverage) / 2).toFloat()
             }
 
-            Glide.with(this).load(MovieApiUtilities.IMAGE_URI + movieModel?.posterPath)
+            Glide.with(this).load(movieModel?.posterPath)
                 .into(activityMovieDetailsBinding.imageView)
         }
 
