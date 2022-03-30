@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviewithfragments.adapters.OnMovieListener
 import com.example.moviewithfragments.R
 
 class MovieViewHolder(itemView: View, onMovieListener: OnMovieListener) :
@@ -13,9 +12,9 @@ class MovieViewHolder(itemView: View, onMovieListener: OnMovieListener) :
     var releaseDate: TextView
     var imageView: ImageView
     var ratingBar: TextView
-    var onMovieListener: OnMovieListener? = null
+    var onMovieListener: OnMovieListener
     override fun onClick(view: View) {
-        onMovieListener!!.onMovieClick(adapterPosition)
+        onMovieListener.onMovieClick(adapterPosition)
     }
 
     init {
