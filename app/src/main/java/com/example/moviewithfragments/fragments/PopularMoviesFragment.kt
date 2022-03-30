@@ -2,12 +2,12 @@ package com.example.moviewithfragments.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviedb.enums.MOVIE
 import com.example.moviedb.viewmodel.MovieViewModelFactory
 import com.example.moviewithfragments.R
 import com.example.moviewithfragments.activities.MovieDetailsActivity
@@ -15,6 +15,7 @@ import com.example.moviewithfragments.adapters.MovieRecyclerView
 import com.example.moviewithfragments.adapters.OnMovieListener
 import com.example.moviewithfragments.api.MovieApi
 import com.example.moviewithfragments.database.MoviesDatabase
+import com.example.moviewithfragments.network.isNetworkAvailable
 import com.example.moviewithfragments.repository.MovieRepository
 import com.example.moviewithfragments.viewmodel.MovieViewModel
 
@@ -23,12 +24,14 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
     val movieRecyclerAdapter = MovieRecyclerView(this)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val isNetworkAvailable = requireContext().isNetworkAvailable()
         val moviesViewModel =
             ViewModelProvider(
                 requireActivity(),
                 MovieViewModelFactory(
                     MovieRepository(
                         MovieApi.create(), MoviesDatabase.getDatabase(requireContext())
+                    ,isNetworkAvailable
                     )
                 )
             ).get(
@@ -43,15 +46,11 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
             movieRecyclerAdapter.updateMovies(it)
         })
 
-
     }
-
-
     override fun onMovieClick(position: Int) {
         val intent = Intent(activity?.baseContext, MovieDetailsActivity::class.java)
         val movie = movieRecyclerAdapter.getIdOfMovieSelected(position)
-        Log.v("Movie", "By Specific Id" + movie)
-        //intent.putExtra(MOVIE, movie)
+        intent.putExtra(MOVIE, movie)
         startActivity(intent)
     }
 }

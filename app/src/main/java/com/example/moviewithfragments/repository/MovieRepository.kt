@@ -1,5 +1,7 @@
 package com.example.moviewithfragments.repository
 
+import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.moviewithfragments.api.MovieApi
 import com.example.moviewithfragments.api.MovieApiUtilities
@@ -8,17 +10,15 @@ import com.example.moviewithfragments.model.MovieData
 import com.example.moviewithfragments.model.MovieModel
 import com.example.moviewithfragments.model.Movies
 import com.example.moviewithfragments.model.ResponseResults
-import com.example.moviewithfragments.network.NetworkConnection
 
 class MovieRepository(
     private val movieApi: MovieApi,
-    private val moviesDatabase: MoviesDatabase
-) {
+    private val moviesDatabase: MoviesDatabase,
+    private val isNetworkAvailable: Boolean
+) :Application(){
     var responseResult: MutableLiveData<ResponseResults<List<MovieData>>> = MutableLiveData()
-    private var networkConnection: NetworkConnection? = null
-
     suspend fun getAllMovies(): ResponseResults<List<MovieData>> {
-        if (networkConnection?.haveNetworkConnection()==true) {
+        if (isNetworkAvailable) {
 
             try {
                 val response = movieApi.getMovies()
@@ -37,13 +37,15 @@ class MovieRepository(
             }
         }
             val popularMovies = getPopularMovies()
+
         return ResponseResults.Success(popularMovies)
 
     }
 
 
-    suspend fun searchMoviesFromCurrentYear(year: Int): ResponseResults<List<MovieData>>  {
-        if (networkConnection?.haveNetworkConnection()==true) {
+    suspend fun searchMoviesFromCurrentYear(year: Int): ResponseResults<List<MovieData>> {
+        Log.v("Check","latest movies"+(isNetworkAvailable))
+        if (isNetworkAvailable) {
 
             try {
                 val response = movieApi.searchMovieByYear(year)
@@ -54,19 +56,19 @@ class MovieRepository(
                     return ResponseResults.Success(data)
 
                 }
-                return  ResponseResults.Failure(response.message())
+                return ResponseResults.Failure(response.message())
 
 
             } catch (e: Exception) {
-                return  ResponseResults.Failure(e.message.toString())
+                return ResponseResults.Failure(e.message.toString())
             }
         }
-        val popularMovies = getCurrentYearMovies(year)
-        return ResponseResults.Success(popularMovies)
+        val latestMovies =getCurrentYearMovies(year)
+        return ResponseResults.Success(latestMovies)
     }
 
-    suspend fun searchMovies(query: String): ResponseResults<List<MovieData>> {
-        if (networkConnection?.haveNetworkConnection()==true) {
+        suspend fun searchMovies(query: String): ResponseResults<List<MovieData>> {
+        if (isNetworkAvailable) {
 
             try {
                 val response = movieApi.searchMovie(query)
@@ -125,7 +127,4 @@ class MovieRepository(
             )
         }
     }
-
-
-
 }

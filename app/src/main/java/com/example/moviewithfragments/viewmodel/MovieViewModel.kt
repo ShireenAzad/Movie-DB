@@ -1,5 +1,6 @@
 package com.example.moviewithfragments.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,12 +34,12 @@ class MovieViewModel(
 
     fun getCurrentYearMovies(year: Int) {
         viewModelScope.launch {
+
             val response = movieRepository.searchMoviesFromCurrentYear(year)
             when (response) {
                 is ResponseResults.Success -> _latestMovies.postValue(response.data!!)
                 is ResponseResults.Failure -> _error.postValue(response.error!!)
             }
-
         }
     }
 

@@ -19,6 +19,7 @@ import com.example.moviewithfragments.adapters.MovieRecyclerView
 import com.example.moviewithfragments.adapters.OnMovieListener
 import com.example.moviewithfragments.api.MovieApi
 import com.example.moviewithfragments.database.MoviesDatabase
+import com.example.moviewithfragments.network.isNetworkAvailable
 import com.example.moviewithfragments.repository.MovieRepository
 import com.example.moviewithfragments.viewmodel.MovieViewModel
 
@@ -29,6 +30,7 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
     var moviesViewModel: MovieViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val isNetworkAvailable = applicationContext.isNetworkAvailable()
         setContentView(R.layout.activity_search)
         moviesViewModel =
             ViewModelProvider(
@@ -36,7 +38,9 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
                 MovieViewModelFactory(
                     MovieRepository(
                         MovieApi.create(),
-                     MoviesDatabase.getDatabase(this))
+                        MoviesDatabase.getDatabase(this),
+                        isNetworkAvailable
+                    )
 
                 )
             ).get(

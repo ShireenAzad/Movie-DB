@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviedb.enums.MOVIE
 import com.example.moviedb.viewmodel.MovieViewModelFactory
 import com.example.moviewithfragments.R
 import com.example.moviewithfragments.activities.MovieDetailsActivity
@@ -14,29 +15,31 @@ import com.example.moviewithfragments.adapters.MovieRecyclerView
 import com.example.moviewithfragments.adapters.OnMovieListener
 import com.example.moviewithfragments.api.MovieApi
 import com.example.moviewithfragments.database.MoviesDatabase
+import com.example.moviewithfragments.network.isNetworkAvailable
 import com.example.moviewithfragments.repository.MovieRepository
 import com.example.moviewithfragments.viewmodel.MovieViewModel
 import java.util.*
 
 
 class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieListener {
-    private val movieRecyclerAdapter = MovieRecyclerView(this)
-
+    val movieRecyclerAdapter = MovieRecyclerView(this)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val isNetworkAvailable = requireContext().isNetworkAvailable()
         val moviesViewModel =
             ViewModelProvider(
                 requireActivity(),
                 MovieViewModelFactory(
                     MovieRepository(
-                        MovieApi.create(),
-                        MoviesDatabase.getDatabase(requireContext())
+                        MovieApi.create(), MoviesDatabase.getDatabase(requireContext())
+                        ,isNetworkAvailable
                     )
                 )
-            )[MovieViewModel::class.java]
+            ).get(
+                MovieViewModel::class.java
+            )
         moviesViewModel.getCurrentYearMovies(Calendar.getInstance().get(Calendar.YEAR))
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewLatestMovies)
-
         recyclerView.adapter = movieRecyclerAdapter
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity())
@@ -44,16 +47,11 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
             movieRecyclerAdapter.updateMovies(it)
         })
 
-
     }
-
-
     override fun onMovieClick(position: Int) {
         val intent = Intent(activity?.baseContext, MovieDetailsActivity::class.java)
         val movie = movieRecyclerAdapter.getIdOfMovieSelected(position)
-        //intent.putExtra(MOVIE, movie)
+        intent.putExtra(MOVIE, movie)
         startActivity(intent)
     }
-
-
 }

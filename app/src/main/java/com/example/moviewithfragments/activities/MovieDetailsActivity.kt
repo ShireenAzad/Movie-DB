@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.example.moviedb.enums.MOVIE
 import com.example.moviewithfragments.api.MovieApiUtilities
 import com.example.moviewithfragments.databinding.ActivityMovieDetailsBinding
+import com.example.moviewithfragments.model.MovieData
 import com.example.moviewithfragments.model.MovieModel
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -15,7 +16,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         activityMovieDetailsBinding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(activityMovieDetailsBinding.root)
         if (intent.hasExtra(MOVIE)) {
-            val movieModel = intent.getParcelableExtra<MovieModel>(MOVIE)
+            val movieModel = intent.getParcelableExtra<MovieData>(MOVIE)
 
             activityMovieDetailsBinding.title.text = movieModel?.title.toString()
             activityMovieDetailsBinding.overview.text = movieModel?.overview.toString()
