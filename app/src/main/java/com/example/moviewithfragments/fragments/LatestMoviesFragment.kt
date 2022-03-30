@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviedb.enums.MOVIE
 import com.example.moviedb.viewmodel.MovieViewModelFactory
 import com.example.moviewithfragments.R
 import com.example.moviewithfragments.activities.MovieDetailsActivity
@@ -52,7 +51,7 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
     override fun onMovieClick(position: Int) {
         val intent = Intent(activity?.baseContext, MovieDetailsActivity::class.java)
         val movie = movieRecyclerAdapter.getIdOfMovieSelected(position)
-        intent.putExtra(MOVIE, movie)
+        //intent.putExtra(MOVIE, movie)
         startActivity(intent)
     }
 
