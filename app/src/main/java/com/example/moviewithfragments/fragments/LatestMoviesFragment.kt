@@ -31,8 +31,9 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
                 requireActivity(),
                 MovieViewModelFactory(
                     MovieRepository(
-                        MovieApi.create(), MoviesDatabase.getDatabase(requireContext())
-                        ,isNetworkAvailable
+                        MovieApi.create(),
+                        MoviesDatabase.getDatabase(requireContext()),
+                        isNetworkAvailable
                     )
                 )
             ).get(
@@ -48,6 +49,7 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
         })
 
     }
+
     override fun onMovieClick(position: Int) {
         val intent = Intent(activity?.baseContext, MovieDetailsActivity::class.java)
         val movie = movieRecyclerAdapter.getIdOfMovieSelected(position)

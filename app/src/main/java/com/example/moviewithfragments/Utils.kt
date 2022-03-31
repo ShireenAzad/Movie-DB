@@ -3,8 +3,9 @@ package com.example.moviewithfragments
 import androidx.recyclerview.widget.DiffUtil
 import com.example.moviewithfragments.model.MovieData
 
-class Utils(private val oldMovies: List<MovieData>, private val newMovies: List<MovieData>) : DiffUtil.Callback() {
-  override fun getOldListSize(): Int {
+class Utils(private val oldMovies: List<MovieData>, private val newMovies: List<MovieData>) :
+    DiffUtil.Callback() {
+    override fun getOldListSize(): Int {
         return oldMovies.size
     }
 

@@ -23,12 +23,12 @@ class MainActivity : AppCompatActivity() {
         val tabLayout = activityMainBinding.tabs
         val viewPager2 = activityMainBinding.viewPager
 
-        val adapter = MainAdapter(this,resources.getStringArray(R.array.movieCategory))
+        val adapter = MainAdapter(this, resources.getStringArray(R.array.movieCategory))
         viewPager2.adapter = adapter
 
         TabLayoutMediator(
             tabLayout, viewPager2
-        ) { tab, position -> tab.text = adapter.getTabTitle(position)}.attach()
+        ) { tab, position -> tab.text = adapter.getTabTitle(position) }.attach()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

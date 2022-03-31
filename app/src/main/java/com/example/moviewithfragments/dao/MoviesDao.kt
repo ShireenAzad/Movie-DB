@@ -16,8 +16,7 @@ interface MoviesDao {
     fun getMovies(): List<MovieData>
 
     @Query("SELECT * FROM movies where strftime('%Y',releaseDate)=:year")
-    fun getMoviesByReleaseYear(year:Int): List<MovieData>
-
+    fun getMoviesByReleaseYear(year: Int): List<MovieData>
 
 
 }

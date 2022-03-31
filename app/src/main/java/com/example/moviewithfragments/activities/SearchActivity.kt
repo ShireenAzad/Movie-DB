@@ -55,9 +55,7 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
         moviesViewModel?.movies?.observe(this, androidx.lifecycle.Observer {
             movieRecyclerAdapter.updateMovies(it)
         })
-          }
-
-
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

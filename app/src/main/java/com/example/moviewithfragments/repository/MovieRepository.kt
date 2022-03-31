@@ -14,7 +14,7 @@ class MovieRepository(
     private val movieApi: MovieApi,
     private val moviesDatabase: MoviesDatabase,
     private val isNetworkAvailable: Boolean
-) :Application(){
+) : Application() {
     var responseResult: MutableLiveData<ResponseResults<List<MovieData>>> = MutableLiveData()
     suspend fun getAllMovies(): ResponseResults<List<MovieData>> {
         if (isNetworkAvailable) {
@@ -28,14 +28,14 @@ class MovieRepository(
                     return ResponseResults.Success(data)
 
                 }
-                  return  ResponseResults.Failure(response.message())
+                return ResponseResults.Failure(response.message())
 
 
             } catch (e: Exception) {
-               return  ResponseResults.Failure(e.message.toString())
+                return ResponseResults.Failure(e.message.toString())
             }
         }
-            val popularMovies = getPopularMovies()
+        val popularMovies = getPopularMovies()
 
         return ResponseResults.Success(popularMovies)
 
@@ -61,11 +61,11 @@ class MovieRepository(
                 return ResponseResults.Failure(e.message.toString())
             }
         }
-        val latestMovies =getCurrentYearMovies(year)
+        val latestMovies = getCurrentYearMovies(year)
         return ResponseResults.Success(latestMovies)
     }
 
-        suspend fun searchMovies(query: String): ResponseResults<List<MovieData>> {
+    suspend fun searchMovies(query: String): ResponseResults<List<MovieData>> {
 
         if (isNetworkAvailable) {
 
@@ -78,11 +78,11 @@ class MovieRepository(
                     return ResponseResults.Success(data)
 
                 }
-                return  ResponseResults.Failure(response.message())
+                return ResponseResults.Failure(response.message())
 
 
             } catch (e: Exception) {
-                return  ResponseResults.Failure(e.message.toString())
+                return ResponseResults.Failure(e.message.toString())
             }
         }
         val popularMovies = getPopularMovies()
@@ -90,12 +90,12 @@ class MovieRepository(
 
     }
 
-     fun getPopularMovies(): List<MovieData> {
+    fun getPopularMovies(): List<MovieData> {
         val movies = moviesDatabase.moviesDao().getMovies()
         return movies
     }
 
-   fun getCurrentYearMovies(year: Int): List<MovieData> {
+    fun getCurrentYearMovies(year: Int): List<MovieData> {
         return moviesDatabase.moviesDao().getMoviesByReleaseYear(year)
 
     }

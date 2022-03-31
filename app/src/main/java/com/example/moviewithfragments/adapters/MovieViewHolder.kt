@@ -18,7 +18,7 @@ class MovieViewHolder(itemView: View, onMovieListener: OnMovieListener) :
     }
 
     init {
-        this.onMovieListener=onMovieListener
+        this.onMovieListener = onMovieListener
         title = itemView.findViewById(R.id.movieTitle)
         releaseDate = itemView.findViewById(R.id.releaseDate)
         imageView = itemView.findViewById(R.id.imageView)

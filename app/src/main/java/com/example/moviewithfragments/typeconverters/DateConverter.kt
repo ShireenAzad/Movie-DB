@@ -10,10 +10,10 @@ import java.util.*
 object DateConverter {
     @TypeConverter
     fun fromTimestamp(releaseDate: String?): Date? {
-        var date: Date? =null
+        var date: Date? = null
         val format = SimpleDateFormat("yyyy-MM-dd")
         try {
-           date = format.parse(releaseDate)
+            date = format.parse(releaseDate)
         } catch (e: ParseException) {
             e.printStackTrace()
         }

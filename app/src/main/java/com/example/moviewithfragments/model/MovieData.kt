@@ -11,4 +11,4 @@ data class MovieData(
     val releaseDate: String,
     val title: String,
     val voteAverage: Double
-):Parcelable
+) : Parcelable
