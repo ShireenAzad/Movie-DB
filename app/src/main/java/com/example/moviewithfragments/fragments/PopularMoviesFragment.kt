@@ -24,6 +24,7 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
     val movieRecyclerAdapter = MovieRecyclerView(this)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewPopularMovies)
         val isNetworkAvailable = requireContext().isNetworkAvailable()
         val moviesViewModel =
             ViewModelProvider(
@@ -38,7 +39,6 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
                 MovieViewModel::class.java
             )
         moviesViewModel.getMovies()
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewPopularMovies)
         recyclerView.adapter = movieRecyclerAdapter
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity())

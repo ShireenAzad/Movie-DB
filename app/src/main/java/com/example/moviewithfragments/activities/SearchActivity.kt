@@ -9,10 +9,10 @@ import android.view.MenuItem
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuItemCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviedb.enums.MOVIE
 import com.example.moviedb.viewmodel.MovieViewModelFactory
 import com.example.moviewithfragments.R
 import com.example.moviewithfragments.adapters.MovieRecyclerView
@@ -32,6 +32,8 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
         super.onCreate(savedInstanceState)
         val isNetworkAvailable = applicationContext.isNetworkAvailable()
         setContentView(R.layout.activity_search)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+
         moviesViewModel =
             ViewModelProvider(
                 this,
@@ -46,7 +48,17 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
             ).get(
                 MovieViewModel::class.java
             )
-    }
+
+        recyclerView.adapter = movieRecyclerAdapter
+        recyclerView.layoutManager =
+            LinearLayoutManager(this)
+        moviesViewModel?.movies?.observe(this, androidx.lifecycle.Observer {
+            movieRecyclerAdapter.updateMovies(it)
+        })
+          }
+
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.action_search, menu)
@@ -67,14 +79,6 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
                 if (query != null) {
                     moviesViewModel?.getMoviesByKeyWord(query)
                 }
-                val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-
-                recyclerView.adapter = movieRecyclerAdapter
-                recyclerView.layoutManager =
-                    LinearLayoutManager(this@SearchActivity)
-                moviesViewModel?.movies?.observe(this@SearchActivity, Observer {
-                    movieRecyclerAdapter?.updateMovies(it)
-                })
                 return false
 
             }
@@ -85,10 +89,8 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
 
     override fun onMovieClick(position: Int) {
         val intent = Intent(this, MovieDetailsActivity::class.java)
-        //intent.putExtra(MOVIE, movieRecyclerAdapter?.getIdOfMovieSelected(position))
+        intent.putExtra(MOVIE, movieRecyclerAdapter?.getIdOfMovieSelected(position))
         startActivity(intent)
     }
-
-
 
 }

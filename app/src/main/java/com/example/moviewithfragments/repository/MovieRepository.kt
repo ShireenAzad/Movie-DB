@@ -66,6 +66,7 @@ class MovieRepository(
     }
 
         suspend fun searchMovies(query: String): ResponseResults<List<MovieData>> {
+
         if (isNetworkAvailable) {
 
             try {
