@@ -18,6 +18,7 @@ import com.example.moviewithfragments.R
 import com.example.moviewithfragments.adapters.MovieRecyclerView
 import com.example.moviewithfragments.adapters.OnMovieListener
 import com.example.moviewithfragments.api.MovieApi
+import com.example.moviewithfragments.api.RetrofitClient
 import com.example.moviewithfragments.database.MoviesDatabase
 import com.example.moviewithfragments.network.isNetworkAvailable
 import com.example.moviewithfragments.repository.MovieRepository
@@ -39,8 +40,8 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
                 this,
                 MovieViewModelFactory(
                     MovieRepository(
-                        MovieApi.create(),
-                        MoviesDatabase.getDatabase(this),
+                        RetrofitClient.create().create(MovieApi::class.java),
+                        MoviesDatabase.getDatabase((this)).moviesDao(),
                         isNetworkAvailable
                     )
 

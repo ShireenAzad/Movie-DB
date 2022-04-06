@@ -14,6 +14,7 @@ import com.example.moviewithfragments.activities.MovieDetailsActivity
 import com.example.moviewithfragments.adapters.MovieRecyclerView
 import com.example.moviewithfragments.adapters.OnMovieListener
 import com.example.moviewithfragments.api.MovieApi
+import com.example.moviewithfragments.api.RetrofitClient
 import com.example.moviewithfragments.database.MoviesDatabase
 import com.example.moviewithfragments.network.isNetworkAvailable
 import com.example.moviewithfragments.repository.MovieRepository
@@ -31,8 +32,8 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
                 requireActivity(),
                 MovieViewModelFactory(
                     MovieRepository(
-                        MovieApi.create(),
-                        MoviesDatabase.getDatabase(requireContext()),
+                        RetrofitClient.create().create(MovieApi::class.java),
+                        MoviesDatabase.getDatabase(requireContext()).moviesDao(),
                         isNetworkAvailable
                     )
                 )
@@ -43,9 +44,10 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
         recyclerView.adapter = movieRecyclerAdapter
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity())
-        moviesViewModel.popularMovies.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        moviesViewModel.latestMovies.observe(viewLifecycleOwner, {
             movieRecyclerAdapter.updateMovies(it)
         })
+
 
     }
 

@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.example.moviewithfragments.api.MovieApi
 import com.example.moviewithfragments.api.MovieApiUtilities
-import com.example.moviewithfragments.database.MoviesDatabase
+import com.example.moviewithfragments.dao.MoviesDao
 import com.example.moviewithfragments.model.MovieData
 import com.example.moviewithfragments.model.MovieModel
 import com.example.moviewithfragments.model.Movies
@@ -12,7 +12,7 @@ import com.example.moviewithfragments.model.ResponseResults
 
 class MovieRepository(
     private val movieApi: MovieApi,
-    private val moviesDatabase: MoviesDatabase,
+    private val moviesDao: MoviesDao,
     private val isNetworkAvailable: Boolean
 ) : Application() {
     var responseResult: MutableLiveData<ResponseResults<List<MovieData>>> = MutableLiveData()
@@ -23,7 +23,7 @@ class MovieRepository(
                 val response = movieApi.getMovies()
                 if (response.isSuccessful) {
                     val dbData = response.body()?.results?.let { convertResponseToEntity(it) }
-                    moviesDatabase.moviesDao().insertMovies(dbData)
+                    moviesDao.insertMovies(dbData)
                     val data = response.body()?.results?.let { convertDTOIntoUIModel(it) }
                     return ResponseResults.Success(data)
 
@@ -49,7 +49,7 @@ class MovieRepository(
                 val response = movieApi.searchMovieByYear(year)
                 if (response.isSuccessful) {
                     val dbData = response.body()?.results?.let { convertResponseToEntity(it) }
-                    moviesDatabase.moviesDao().insertMovies(dbData)
+                    moviesDao.insertMovies(dbData)
                     val data = response.body()?.results?.let { convertDTOIntoUIModel(it) }
                     return ResponseResults.Success(data)
 
@@ -73,7 +73,7 @@ class MovieRepository(
                 val response = movieApi.searchMovie(query)
                 if (response.isSuccessful) {
                     val dbData = response.body()?.results?.let { convertResponseToEntity(it) }
-                    moviesDatabase.moviesDao().insertMovies(dbData)
+                    moviesDao.insertMovies(dbData)
                     val data = response.body()?.results?.let { convertDTOIntoUIModel(it) }
                     return ResponseResults.Success(data)
 
@@ -91,12 +91,12 @@ class MovieRepository(
     }
 
     fun getPopularMovies(): List<MovieData> {
-        val movies = moviesDatabase.moviesDao().getMovies()
+        val movies = moviesDao.getMovies()
         return movies
     }
 
     fun getCurrentYearMovies(year: Int): List<MovieData> {
-        return moviesDatabase.moviesDao().getMoviesByReleaseYear(year)
+        return moviesDao.getMoviesByReleaseYear(year)
 
     }
 

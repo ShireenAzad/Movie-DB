@@ -12,20 +12,20 @@ import kotlinx.coroutines.launch
 class MovieViewModel(
     private var movieRepository: MovieRepository,
 ) : ViewModel() {
-    private val _popularMovies = MutableLiveData<List<MovieData>>()
-    val popularMovies: LiveData<List<MovieData>> = _popularMovies
+    private val _popularMovies = MutableLiveData<List<MovieData>?>()
+    val popularMovies: MutableLiveData<List<MovieData>?> = _popularMovies
     private val _latestMovies = MutableLiveData<List<MovieData>>()
     val latestMovies: LiveData<List<MovieData>> = _latestMovies
     private val _movies = MutableLiveData<List<MovieData>>()
     val movies: LiveData<List<MovieData>> = _movies
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String> = _error
+    private val _error = MutableLiveData<String?>()
+    val error: MutableLiveData<String?> = _error
     fun getMovies() {
         viewModelScope.launch {
             val response = movieRepository.getAllMovies()
             when (response) {
-                is ResponseResults.Success -> _popularMovies.postValue(response.data!!)
-                is ResponseResults.Failure -> _error.postValue(response.error!!)
+                is ResponseResults.Success -> _popularMovies.postValue(response.data)
+                is ResponseResults.Failure -> _error.postValue(response.error)
             }
         }
     }
