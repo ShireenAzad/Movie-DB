@@ -1,10 +1,7 @@
 package com.example.moviewithfragments.model
 
-sealed class ResponseResults<T>(
-    val data: T? = null,
-    val error: String? = null
-) {
-    class Success<T>(data: T? = null) : ResponseResults<T>(data = data)
-    class Failure<T>(error: String) : ResponseResults<T>(error = error)
+sealed class ResponseResults<T>() {
+    class Success<T>(val data: T? = null) : ResponseResults<T>()
+    class Failure<T>(val error: String) : ResponseResults<T>()
     class Loading<T>() : ResponseResults<T>()
 }
