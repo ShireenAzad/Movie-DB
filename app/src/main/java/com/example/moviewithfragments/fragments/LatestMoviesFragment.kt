@@ -45,10 +45,9 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
         recyclerView.adapter = movieRecyclerAdapter
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity())
-        moviesViewModel.latestMovies.observe(viewLifecycleOwner, {
+        moviesViewModel.latestMovies.observe(viewLifecycleOwner,{
             movieRecyclerAdapter.updateMovies(it)
         })
-
     }
 
     override fun onMovieClick(position: Int) {

@@ -44,7 +44,7 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
         recyclerView.adapter = movieRecyclerAdapter
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity())
-        moviesViewModel.latestMovies.observe(viewLifecycleOwner, {
+        moviesViewModel.latestMovies.observe(viewLifecycleOwner,{
             movieRecyclerAdapter.updateMovies(it)
         })
 
