@@ -49,7 +49,6 @@ class SearchActivity : AppCompatActivity(), OnMovieListener {
             ).get(
                 MovieViewModel::class.java
             )
-
         recyclerView.adapter = movieRecyclerAdapter
         recyclerView.layoutManager =
             LinearLayoutManager(this)

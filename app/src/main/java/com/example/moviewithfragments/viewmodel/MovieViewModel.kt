@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 class MovieViewModel(
     private var movieRepository: MovieRepository,
 ) : ViewModel() {
-    private val _popularMovies = MutableLiveData<List<MovieData>?>()
-    val popularMovies: MutableLiveData<List<MovieData>?> = _popularMovies
+    private val _popularMovies = MutableLiveData<List<MovieData>>()
+    val popularMovies: MutableLiveData<List<MovieData>> = _popularMovies
     private val _latestMovies = MutableLiveData<List<MovieData>>()
     val latestMovies: LiveData<List<MovieData>> = _latestMovies
     private val _movies = MutableLiveData<List<MovieData>>()
@@ -33,7 +33,6 @@ class MovieViewModel(
 
     fun getCurrentYearMovies(year: Int) {
         viewModelScope.launch {
-
             val response = movieRepository.searchMoviesFromCurrentYear(year)
             when (response) {
                 is ResponseResults.Success -> _latestMovies.postValue(response.data!!)

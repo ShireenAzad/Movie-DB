@@ -26,28 +26,26 @@ class LatestMoviesFragment : Fragment(R.layout.fragment_latest_movies), OnMovieL
     val movieRecyclerAdapter = MovieRecyclerView(this)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewLatestMovies)
         val isNetworkAvailable = requireContext().isNetworkAvailable()
         val moviesViewModel =
             ViewModelProvider(
                 requireActivity(),
                 MovieViewModelFactory(
                     MovieRepository(
-                       RetrofitClient.create().create(MovieApi::class.java),
+                        RetrofitClient.create().create(MovieApi::class.java),
                         MoviesDatabase.getDatabase(requireContext()).moviesDao(),
                         isNetworkAvailable
                     )
                 )
-            ).get(
-                MovieViewModel::class.java
-            )
+            )[MovieViewModel::class.java]
         moviesViewModel.getCurrentYearMovies(Calendar.getInstance().get(Calendar.YEAR))
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewLatestMovies)
         recyclerView.adapter = movieRecyclerAdapter
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity())
-        moviesViewModel.latestMovies.observe(viewLifecycleOwner,{
+        moviesViewModel.latestMovies.observe(viewLifecycleOwner) {
             movieRecyclerAdapter.updateMovies(it)
-        })
+        }
     }
 
     override fun onMovieClick(position: Int) {

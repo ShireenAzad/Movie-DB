@@ -1,7 +1,6 @@
 package com.example.moviewithfragments.repository
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
 import com.example.moviewithfragments.api.MovieApi
 import com.example.moviewithfragments.api.MovieApiUtilities
 import com.example.moviewithfragments.dao.MoviesDao
@@ -15,10 +14,8 @@ class MovieRepository(
     private val moviesDao: MoviesDao,
     private val isNetworkAvailable: Boolean
 ) : Application() {
-    var responseResult: MutableLiveData<ResponseResults<List<MovieData>>> = MutableLiveData()
     suspend fun getAllMovies(): ResponseResults<List<MovieData>> {
         if (isNetworkAvailable) {
-
             try {
                 val response = movieApi.getMovies()
                 if (response.isSuccessful) {
@@ -36,7 +33,6 @@ class MovieRepository(
             }
         }
         val popularMovies = getPopularMovies()
-
         return ResponseResults.Success(popularMovies)
 
     }
@@ -44,7 +40,6 @@ class MovieRepository(
 
     suspend fun searchMoviesFromCurrentYear(year: Int): ResponseResults<List<MovieData>> {
         if (isNetworkAvailable) {
-
             try {
                 val response = movieApi.searchMovieByYear(year)
                 if (response.isSuccessful) {
@@ -85,19 +80,21 @@ class MovieRepository(
                 return ResponseResults.Failure(e.message.toString())
             }
         }
-        val popularMovies = getPopularMovies()
+        val popularMovies =getMoviesByKeyWord(query)
         return ResponseResults.Success(popularMovies)
 
     }
 
-    fun getPopularMovies(): List<MovieData> {
-        val movies = moviesDao.getMovies()
-        return movies
+    private fun getPopularMovies(): List<MovieData> {
+       return moviesDao.getMovies()
     }
 
-    fun getCurrentYearMovies(year: Int): List<MovieData> {
+    private fun getCurrentYearMovies(year: Int): List<MovieData> {
         return moviesDao.getMoviesByReleaseYear(year)
 
+    }
+    private fun getMoviesByKeyWord(query: String):List<MovieData>{
+        return moviesDao.getMoviesByKeyWord(query)
     }
 
     private fun convertResponseToEntity(movies: List<MovieModel>): List<Movies> {

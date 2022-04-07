@@ -37,18 +37,15 @@ class PopularMoviesFragment : Fragment(R.layout.fragment_popular_movies), OnMovi
                         isNetworkAvailable
                     )
                 )
-            ).get(
-                MovieViewModel::class.java
-            )
+            )[MovieViewModel::class.java]
         moviesViewModel.getMovies()
         recyclerView.adapter = movieRecyclerAdapter
         recyclerView.layoutManager =
             LinearLayoutManager(requireActivity())
-        moviesViewModel.latestMovies.observe(viewLifecycleOwner,{
+        moviesViewModel.popularMovies.observe(viewLifecycleOwner) {
             movieRecyclerAdapter.updateMovies(it)
-        })
 
-
+        }
     }
 
     override fun onMovieClick(position: Int) {

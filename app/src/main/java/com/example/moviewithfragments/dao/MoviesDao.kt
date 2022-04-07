@@ -18,5 +18,8 @@ interface MoviesDao {
     @Query("SELECT * FROM movies where strftime('%Y',releaseDate)=:year")
     fun getMoviesByReleaseYear(year: Int): List<MovieData>
 
+    @Query("SELECT * FROM movies WHERE title LIKE '%' || :query || '%'")
+    fun getMoviesByKeyWord(query: String?): List<MovieData>
+
 
 }
